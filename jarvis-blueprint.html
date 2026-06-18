@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JARVIS — World-Class Personal AI Operating System</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #161616;
+    --bg4: #1c1c1c;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --accent: #d4ff3a;
+    --accent2: #39ff14;
+    --accent-dim: rgba(212,255,58,0.12);
+    --accent-glow: rgba(212,255,58,0.06);
+    --text: #f0efe8;
+    --text2: #9b9a93;
+    --text3: #5a5955;
+    --blue: #4488ff;
+    --blue-dim: rgba(68,136,255,0.1);
+    --coral: #ff6b4a;
+    --coral-dim: rgba(255,107,74,0.1);
+    --purple: #b47fff;
+    --purple-dim: rgba(180,127,255,0.1);
+    --teal: #2fdba8;
+    --teal-dim: rgba(47,219,168,0.1);
+    --amber: #ffb347;
+    --amber-dim: rgba(255,179,71,0.1);
+    --pink: #ff6eb4;
+    --pink-dim: rgba(255,110,180,0.1);
+    --white: #ffffff;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 18px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  ::selection { background: var(--accent); color: #000; }
+
+  /* ── HEADER ── */
+  .hero {
+    padding: 80px 0 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(212,255,58,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-dim); border: 1px solid rgba(212,255,58,0.2);
+    color: var(--accent); font-family: 'DM Mono', monospace; font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 100px; margin-bottom: 28px;
+  }
+  .badge::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    color: var(--text);
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero-sub {
+    margin-top: 24px;
+    font-size: 17px; font-weight: 300;
+    color: var(--text2); max-width: 640px; margin-left: auto; margin-right: auto;
+  }
+  .hero-meta {
+    margin-top: 40px;
+    display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat .num {
+    font-family: 'Playfair Display', serif; font-size: 32px; color: var(--accent);
+    display: block;
+  }
+  .hero-stat .lbl { font-size: 12px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+  .section { padding: 64px 0; }
+  .section-label {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 42px); font-weight: 700;
+    line-height: 1.15; margin-bottom: 16px;
+    color: var(--text);
+  }
+  .section-desc { color: var(--text2); max-width: 680px; margin-bottom: 48px; font-size: 15px; }
+  hr.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  /* ── ARCHITECTURE DIAGRAM ── */
+  .arch-diagram {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .arch-diagram::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .arch-layer {
+    display: flex; gap: 10px; margin-bottom: 10px; align-items: stretch;
+  }
+  .arch-layer-label {
+    writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+    font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text3);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    min-width: 28px; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .arch-nodes { flex: 1; display: flex; gap: 10px; flex-wrap: wrap; }
+  .arch-node {
+    flex: 1; min-width: 120px;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 14px 16px;
+    position: relative; transition: all 0.2s;
+  }
+  .arch-node:hover { border-color: var(--border2); background: var(--bg4); }
+  .arch-node.highlight { border-color: rgba(212,255,58,0.25); }
+  .arch-node .node-icon { font-size: 18px; margin-bottom: 6px; }
+  .arch-node .node-name {
+    font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px;
+  }
+  .arch-node .node-desc { font-size: 11px; color: var(--text3); line-height: 1.4; }
+  .arch-node.accent-node { background: var(--accent-dim); border-color: rgba(212,255,58,0.2); }
+  .arch-node.accent-node .node-name { color: var(--accent); }
+  .arch-connector {
+    display: flex; align-items: center; justify-content: center;
+    padding: 4px 0; color: var(--text3); font-size: 18px;
+  }
+
+  /* ── AGENT GRID ── */
+  .agent-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  .agent-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+    transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .agent-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .agent-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .agent-card:hover::before { opacity: 1; }
+  .agent-card.blue::before { background: var(--blue); }
+  .agent-card.coral::before { background: var(--coral); }
+  .agent-card.purple::before { background: var(--purple); }
+  .agent-card.teal::before { background: var(--teal); }
+  .agent-card.amber::before { background: var(--amber); }
+  .agent-card.pink::before { background: var(--pink); }
+  .agent-card.accent::before { background: var(--accent); }
+  .agent-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .agent-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+    flex-shrink: 0;
+  }
+  .blue .agent-icon { background: var(--blue-dim); }
+  .coral .agent-icon { background: var(--coral-dim); }
+  .purple .agent-icon { background: var(--purple-dim); }
+  .teal .agent-icon { background: var(--teal-dim); }
+  .amber .agent-icon { background: var(--amber-dim); }
+  .pink .agent-icon { background: var(--pink-dim); }
+  .accent .agent-icon { background: var(--accent-dim); }
+  .agent-title { font-size: 15px; font-weight: 500; color: var(--text); }
+  .agent-subtitle { font-size: 12px; color: var(--text3); }
+  .agent-desc { font-size: 13px; color: var(--text2); margin-bottom: 14px; line-height: 1.6; }
+  .agent-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tool-tag {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    padding: 3px 9px; border-radius: 100px;
+    border: 1px solid var(--border); color: var(--text3);
+  }
+
+  /* ── MEMORY SYSTEM ── */
+  .memory-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .memory-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+  }
+  .memory-card h4 { font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+  .memory-card p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+  .memory-card ul { list-style: none; padding: 0; margin-top: 10px; }
+  .memory-card ul li {
+    font-size: 12px; color: var(--text2); padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .memory-card ul li:last-child { border-bottom: none; }
+  .memory-card ul li::before { content: '→'; color: var(--accent); font-size: 11px; }
+
+  /* ── TIMELINE / ROADMAP ── */
+  .roadmap { position: relative; padding-left: 32px; }
+  .roadmap::before {
+    content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px;
+    width: 1px; background: var(--border);
+  }
+  .roadmap-phase { margin-bottom: 32px; position: relative; }
+  .roadmap-dot {
+    position: absolute; left: -28px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--border2);
+  }
+  .roadmap-dot.active { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 12px rgba(212,255,58,0.4); }
+  .phase-label {
+    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .phase-title { font-size: 17px; font-weight: 500; margin-bottom: 8px; }
+  .phase-desc { font-size: 14px; color: var(--text2); line-height: 1.6; }
+  .phase-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .phase-tag {
+    font-size: 12px; padding: 4px 10px; border-radius: 100px;
+    background: var(--bg3); border: 1px solid var(--border); color: var(--text2);
+  }
+
+  /* ── TECH STACK ── */
+  .tech-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px;
+  }
+  .tech-item {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 16px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .tech-icon { font-size: 22px; flex-shrink: 0; }
+  .tech-name { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .tech-role { font-size: 12px; color: var(--text3); }
+
+  /* ── WORKFLOW TABLE ── */
+  .workflow-table { width: 100%; border-collapse: collapse; }
+  .workflow-table th {
+    font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--text3); text-align: left;
+    padding: 10px 14px; border-bottom: 1px solid var(--border);
+  }
+  .workflow-table td {
+    padding: 12px 14px; font-size: 13px; color: var(--text2);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .workflow-table tr:last-child td { border-bottom: none; }
+  .workflow-table td:first-child { color: var(--text); font-weight: 500; }
+  .trigger-badge {
+    display: inline-block; font-size: 10px; font-family: 'DM Mono', monospace;
+    padding: 2px 8px; border-radius: 100px;
+    background: var(--blue-dim); color: var(--blue);
+    border: 1px solid rgba(68,136,255,0.2);
+  }
+  .trigger-badge.event { background: var(--coral-dim); color: var(--coral); border-color: rgba(255,107,74,0.2); }
+  .trigger-badge.threshold { background: var(--amber-dim); color: var(--amber); border-color: rgba(255,179,71,0.2); }
+
+  /* ── SECURITY SECTION ── */
+  .security-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .sec-item {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 20px;
+  }
+  .sec-item .icon { font-size: 24px; margin-bottom: 10px; }
+  .sec-item h4 { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+  .sec-item p { font-size: 12px; color: var(--text3); line-height: 1.5; }
+
+  /* ── PROMPT BLOCK ── */
+  .prompt-block {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 24px 28px; font-family: 'DM Mono', monospace; font-size: 13px;
+    color: var(--text2); line-height: 1.8; position: relative;
+  }
+  .prompt-block .prompt-label {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em;
+    color: var(--accent); margin-bottom: 12px; display: block;
+  }
+  .prompt-var { color: var(--accent); }
+  .prompt-comment { color: var(--text3); }
+
+  /* ── COST BREAKDOWN ── */
+  .cost-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  .cost-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 20px; text-align: center;
+  }
+  .cost-card .cost-num {
+    font-family: 'Playfair Display', serif; font-size: 28px;
+    color: var(--accent); display: block; margin-bottom: 4px;
+  }
+  .cost-card .cost-label { font-size: 12px; color: var(--text3); }
+  .cost-card .cost-detail { font-size: 11px; color: var(--text3); margin-top: 8px; line-height: 1.4; }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 48px 0; text-align: center;
+    border-top: 1px solid var(--border);
+    color: var(--text3); font-size: 13px;
+  }
+  .footer .footer-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; color: var(--text2); margin-bottom: 8px;
+  }
+
+  /* ── MISC ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .info-block {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+  }
+  .info-block h4 { font-size: 15px; font-weight: 500; margin-bottom: 10px; }
+  .info-block ul { list-style: none; padding: 0; }
+  .info-block ul li {
+    font-size: 13px; color: var(--text2); padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .info-block ul li:last-child { border-bottom: none; }
+  .info-block ul li .li-num {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    color: var(--accent); min-width: 20px; padding-top: 3px;
+  }
+  .tag-accent {
+    display: inline-block; font-size: 11px;
+    background: var(--accent-dim); color: var(--accent);
+    border: 1px solid rgba(212,255,58,0.2);
+    padding: 2px 8px; border-radius: 100px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  @media (max-width: 700px) {
+    .memory-grid, .two-col, .cost-grid, .security-grid { grid-template-columns: 1fr; }
+    .arch-layer { flex-direction: column; }
+    .arch-layer-label { writing-mode: initial; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="badge">World-Class Architecture · v2.0</div>
+    <h1>J<span class="accent">.</span>A<span class="accent">.</span>R<span class="accent">.</span>V<span class="accent">.</span>I<span class="accent">.</span>S</h1>
+    <div style="font-family:'DM Mono',monospace; font-size:13px; color:var(--text3); letter-spacing:0.15em; text-transform:uppercase; margin-top:10px;">
+      Just A Rather Very Intelligent System
+    </div>
+    <p class="hero-sub">
+      A complete 24/7 autonomous AI operating system for your life, business, wellness, relationships, finances, and legacy — built on multi-agent architecture with persistent memory and proactive intelligence.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-stat"><span class="num">18</span><span class="lbl">Domain Agents</span></div>
+      <div class="hero-stat"><span class="num">12</span><span class="lbl">Life Domains</span></div>
+      <div class="hero-stat"><span class="num">60+</span><span class="lbl">Integrations</span></div>
+      <div class="hero-stat"><span class="num">~90%</span><span class="lbl">Automation Rate</span></div>
+      <div class="hero-stat"><span class="num">24/7</span><span class="lbl">Always On</span></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ ARCHITECTURE -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">System Design</div>
+    <h2 class="section-title">The 9-Layer Architecture</h2>
+    <p class="section-desc">Every layer has a single responsibility. Nothing bleeds between boundaries. This is the difference between a chatbot and an operating system.</p>
+
+    <div class="arch-diagram">
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">Input</div>
+        <div class="arch-nodes">
+          <div class="arch-node accent-node">
+            <div class="node-icon">🎙</div>
+            <div class="node-name">Voice (Whisper + ElevenLabs)</div>
+            <div class="node-desc">Real-time STT/TTS — natural conversation anywhere</div>
+          </div>
+          <div class="arch-node accent-node">
+            <div class="node-icon">💬</div>
+            <div class="node-name">Chat (Telegram / WhatsApp)</div>
+            <div class="node-desc">Mobile-native command layer with rich formatting</div>
+          </div>
+          <div class="arch-node accent-node">
+            <div class="node-icon">🖥</div>
+            <div class="node-name">Mission Control UI</div>
+            <div class="node-desc">Web dashboard — full visibility + manual overrides</div>
+          </div>
+          <div class="arch-node accent-node">
+            <div class="node-icon">⚡</div>
+            <div class="node-name">Webhooks + Triggers</div>
+            <div class="node-desc">Event-driven activation — no human needed</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-connector">↓</div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">Brain</div>
+        <div class="arch-nodes">
+          <div class="arch-node highlight" style="border-color:rgba(212,255,58,0.3); background:rgba(212,255,58,0.05);">
+            <div class="node-icon">🧠</div>
+            <div class="node-name" style="color:var(--accent)">Orchestrator Agent (JARVIS Core)</div>
+            <div class="node-desc">Intent classification · Memory retrieval · Agent routing · Priority queue · Conflict resolution · Self-reflection loop</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-connector">↓</div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">Agents</div>
+        <div class="arch-nodes">
+          <div class="arch-node"><div class="node-icon">💼</div><div class="node-name">Business Agent</div><div class="node-desc">CRM, pipeline, clients</div></div>
+          <div class="arch-node"><div class="node-icon">🧘</div><div class="node-name">Wellness Agent</div><div class="node-desc">Sleep, fitness, mental</div></div>
+          <div class="arch-node"><div class="node-icon">💰</div><div class="node-name">Finance Agent</div><div class="node-desc">Cashflow, taxes, wealth</div></div>
+          <div class="arch-node"><div class="node-icon">📅</div><div class="node-name">Calendar Agent</div><div class="node-desc">Time, energy, flow</div></div>
+          <div class="arch-node"><div class="node-icon">✉️</div><div class="node-name">Comms Agent</div><div class="node-desc">Email, Slack, outreach</div></div>
+          <div class="arch-node"><div class="node-icon">🔬</div><div class="node-name">Research Agent</div><div class="node-desc">Web, docs, intel</div></div>
+        </div>
+      </div>
+
+      <div class="arch-connector">↓</div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">Workflow</div>
+        <div class="arch-nodes">
+          <div class="arch-node">
+            <div class="node-icon">⚙️</div>
+            <div class="node-name">n8n Automation Engine</div>
+            <div class="node-desc">Scheduled jobs · Event chains · Conditional logic · Parallel execution</div>
+          </div>
+          <div class="arch-node">
+            <div class="node-icon">🔀</div>
+            <div class="node-name">Task Queue (Redis + Bull)</div>
+            <div class="node-desc">Priority queuing · Retry logic · Rate limiting · Dead-letter handling</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-connector">↓</div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">Memory</div>
+        <div class="arch-nodes">
+          <div class="arch-node"><div class="node-icon">⚡</div><div class="node-name">Working Memory</div><div class="node-desc">Last 20 turns · Active session context</div></div>
+          <div class="arch-node"><div class="node-icon">🗄</div><div class="node-name">Episodic Memory</div><div class="node-desc">Events, decisions, outcomes (vector DB)</div></div>
+          <div class="arch-node"><div class="node-icon">📚</div><div class="node-name">Semantic Memory</div><div class="node-desc">Facts, preferences, relationships</div></div>
+          <div class="arch-node"><div class="node-icon">🧬</div><div class="node-name">Procedural Memory</div><div class="node-desc">Your SOPs, playbooks, patterns</div></div>
+        </div>
+      </div>
+
+      <div class="arch-connector">↓</div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">Data</div>
+        <div class="arch-nodes">
+          <div class="arch-node"><div class="node-icon">🏛</div><div class="node-name">Supabase (Postgres)</div><div class="node-desc">Structured data + pgvector</div></div>
+          <div class="arch-node"><div class="node-icon">🔍</div><div class="node-name">Pinecone / Qdrant</div><div class="node-desc">Semantic search at scale</div></div>
+          <div class="arch-node"><div class="node-icon">📁</div><div class="node-name">Files + Knowledge Base</div><div class="node-desc">S3/Cloudflare R2 object store</div></div>
+        </div>
+      </div>
+
+      <div class="arch-connector">↓</div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">Integrations</div>
+        <div class="arch-nodes" style="flex-wrap:wrap">
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">Gmail</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">Calendar</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">Notion</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">HubSpot</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">Stripe</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">Slack</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">Airtable</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">Linear</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">Apple Health</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">Oura Ring</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">Todoist</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">Twilio</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">Telegram</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">GitHub</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">Spotify</div></div>
+          <div class="arch-node" style="min-width:80px;flex-basis:80px;padding:10px 12px;"><div class="node-desc" style="font-size:12px">+45 more</div></div>
+        </div>
+      </div>
+
+      <div class="arch-connector">↓</div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">Infra</div>
+        <div class="arch-nodes">
+          <div class="arch-node"><div class="node-icon">🐳</div><div class="node-name">Docker + Docker Compose</div><div class="node-desc">Containerized, portable, reproducible</div></div>
+          <div class="arch-node"><div class="node-icon">☁️</div><div class="node-name">Railway / Render / VPS</div><div class="node-desc">Always-on hosting, auto-restart</div></div>
+          <div class="arch-node"><div class="node-icon">📊</div><div class="node-name">Monitoring + Alerting</div><div class="node-desc">Uptime, error tracking, cost alerts</div></div>
+          <div class="arch-node"><div class="node-icon">🔐</div><div class="node-name">Security Layer</div><div class="node-desc">Vault, encryption, audit logs</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ 18 DOMAIN AGENTS -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Domain Coverage</div>
+    <h2 class="section-title">18 Specialized Agents — Complete Life Coverage</h2>
+    <p class="section-desc">Each agent has a focused system prompt, dedicated tool access, domain-specific memory, and its own escalation rules. No overlap. No gaps.</p>
+
+    <div class="agent-grid">
+
+      <!-- Business -->
+      <div class="agent-card blue">
+        <div class="agent-header">
+          <div class="agent-icon">💼</div>
+          <div><div class="agent-title">Business Agent</div><div class="agent-subtitle">Revenue, pipeline, client delivery</div></div>
+        </div>
+        <div class="agent-desc">Monitors your pipeline daily. Flags at-risk deals. Drafts proposals and follow-ups. Tracks KPIs vs targets. Alerts you when revenue projections shift. Runs weekly business health reports.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">HubSpot</span><span class="tool-tag">Stripe</span><span class="tool-tag">Notion</span><span class="tool-tag">Airtable</span><span class="tool-tag">Claude</span>
+        </div>
+      </div>
+
+      <!-- Wellness -->
+      <div class="agent-card teal">
+        <div class="agent-header">
+          <div class="agent-icon">🧘</div>
+          <div><div class="agent-title">Wellness Agent</div><div class="agent-subtitle">Physical, mental, energy optimization</div></div>
+        </div>
+        <div class="agent-desc">Reads sleep data, HRV, activity metrics. Notices patterns across weeks. Suggests workout intensity based on recovery. Prompts fasting windows, hydration, movement breaks. Tracks mood trends.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Oura</span><span class="tool-tag">Apple Health</span><span class="tool-tag">MyFitnessPal</span><span class="tool-tag">Cronometer</span>
+        </div>
+      </div>
+
+      <!-- Finance -->
+      <div class="agent-card amber">
+        <div class="agent-header">
+          <div class="agent-icon">💰</div>
+          <div><div class="agent-title">Finance Agent</div><div class="agent-subtitle">Cash flow, taxes, wealth building</div></div>
+        </div>
+        <div class="agent-desc">Monitors invoices, overdue receivables, and Stripe revenue. Categorizes expenses. Projects monthly cashflow. Flags tax deadlines. Monitors TFSA/RRSP contribution room. Weekly P&L summary.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Stripe</span><span class="tool-tag">Wave/QBO</span><span class="tool-tag">Plaid</span><span class="tool-tag">Notion</span>
+        </div>
+      </div>
+
+      <!-- Calendar / Time -->
+      <div class="agent-card purple">
+        <div class="agent-header">
+          <div class="agent-icon">⏱</div>
+          <div><div class="agent-title">Time & Energy Agent</div><div class="agent-subtitle">Calendar, deep work, scheduling</div></div>
+        </div>
+        <div class="agent-desc">Schedules meetings only in your low-energy windows. Protects deep work blocks. Sends 24h meeting prep briefs. Detects calendar overload. Auto-reschedules when conflicts arise. Tracks time-vs-goal alignment.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Google Cal</span><span class="tool-tag">Calendly</span><span class="tool-tag">Notion</span><span class="tool-tag">Toggl</span>
+        </div>
+      </div>
+
+      <!-- Communications -->
+      <div class="agent-card coral">
+        <div class="agent-header">
+          <div class="agent-icon">✉️</div>
+          <div><div class="agent-title">Comms Agent</div><div class="agent-subtitle">Email, Slack, client comms</div></div>
+        </div>
+        <div class="agent-desc">Triages inbox by priority. Drafts replies in your voice. Handles routine responses autonomously. Summarizes long threads. Flags VIP messages. Monitors Slack channels for action items.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Gmail</span><span class="tool-tag">Slack</span><span class="tool-tag">Telegram</span><span class="tool-tag">Twilio</span>
+        </div>
+      </div>
+
+      <!-- Research -->
+      <div class="agent-card blue">
+        <div class="agent-header">
+          <div class="agent-icon">🔬</div>
+          <div><div class="agent-title">Research Agent</div><div class="agent-subtitle">Intelligence gathering, synthesis</div></div>
+        </div>
+        <div class="agent-desc">Runs competitive research on demand. Monitors industry news and surfaces relevant signals. Summarizes long documents. Does prospect research before calls. Tracks trends in your domain weekly.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Web Search</span><span class="tool-tag">Perplexity</span><span class="tool-tag">Exa</span><span class="tool-tag">Jina Reader</span>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="agent-card pink">
+        <div class="agent-header">
+          <div class="agent-icon">✍️</div>
+          <div><div class="agent-title">Content Agent</div><div class="agent-subtitle">Writing, publishing, brand voice</div></div>
+        </div>
+        <div class="agent-desc">Writes LinkedIn posts from voice notes or ideas. Repurposes content across formats. Maintains your editorial calendar. Schedules posts. Tracks engagement. Learns your voice over time.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">LinkedIn</span><span class="tool-tag">Twitter/X</span><span class="tool-tag">Buffer</span><span class="tool-tag">Typefully</span>
+        </div>
+      </div>
+
+      <!-- Ops / Projects -->
+      <div class="agent-card amber">
+        <div class="agent-header">
+          <div class="agent-icon">🔧</div>
+          <div><div class="agent-title">Ops Agent</div><div class="agent-subtitle">Projects, files, task management</div></div>
+        </div>
+        <div class="agent-desc">Maintains your project boards. Breaks goals into tasks. Tracks completion rates. Flags blocked items. Manages file organization. Runs weekly operations review. Monitors deadlines.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Linear</span><span class="tool-tag">Notion</span><span class="tool-tag">Todoist</span><span class="tool-tag">GitHub</span>
+        </div>
+      </div>
+
+      <!-- Learning -->
+      <div class="agent-card teal">
+        <div class="agent-header">
+          <div class="agent-icon">📚</div>
+          <div><div class="agent-title">Learning Agent</div><div class="agent-subtitle">Knowledge acquisition, skills</div></div>
+        </div>
+        <div class="agent-desc">Tracks your reading list. Summarizes books and articles. Sends spaced repetition reviews. Identifies skill gaps vs your goals. Suggests courses. Creates personalized learning plans. Builds your second brain.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Readwise</span><span class="tool-tag">Kindle</span><span class="tool-tag">Notion</span><span class="tool-tag">Anki API</span>
+        </div>
+      </div>
+
+      <!-- Relationships -->
+      <div class="agent-card pink">
+        <div class="agent-header">
+          <div class="agent-icon">🤝</div>
+          <div><div class="agent-title">Relationships Agent</div><div class="agent-subtitle">Network, family, community</div></div>
+        </div>
+        <div class="agent-desc">Tracks your important relationships. Reminds you to reach out when someone hasn't heard from you in a while. Remembers birthdays, family milestones. Notes conversation context for next meeting. Manages your personal CRM.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Clay (personal)</span><span class="tool-tag">Google Contacts</span><span class="tool-tag">Notion</span>
+        </div>
+      </div>
+
+      <!-- Legal / Immigration -->
+      <div class="agent-card purple">
+        <div class="agent-header">
+          <div class="agent-icon">⚖️</div>
+          <div><div class="agent-title">Legal & Immigration Agent</div><div class="agent-subtitle">Compliance, deadlines, documents</div></div>
+        </div>
+        <div class="agent-desc">Tracks Canadian PR/immigration milestones and deadlines. Monitors CRS score changes. Alerts on policy updates affecting your pathway. Manages contract templates. Tracks NDAs, client agreements, renewals.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Notion</span><span class="tool-tag">DocuSign</span><span class="tool-tag">Web Alerts</span>
+        </div>
+      </div>
+
+      <!-- Spiritual / Mindfulness -->
+      <div class="agent-card teal">
+        <div class="agent-header">
+          <div class="agent-icon">🕌</div>
+          <div><div class="agent-title">Spiritual Agent</div><div class="agent-subtitle">Islamic practice, values alignment</div></div>
+        </div>
+        <div class="agent-desc">Sends prayer time reminders. Tracks fasting (Ramadan + voluntary). Surfaces relevant Quran ayahs for your current challenges. Reflection prompts aligned with Islamic values. Friday Jumu'ah reminders and nearby masjid info.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Prayer Times API</span><span class="tool-tag">Quran API</span><span class="tool-tag">Notion</span>
+        </div>
+      </div>
+
+      <!-- Home / Environment -->
+      <div class="agent-card amber">
+        <div class="agent-header">
+          <div class="agent-icon">🏠</div>
+          <div><div class="agent-title">Home Agent</div><div class="agent-subtitle">Environment, logistics, household</div></div>
+        </div>
+        <div class="agent-desc">Manages grocery lists. Tracks recurring household tasks. Monitors weather for St. John's to inform your day. Tracks utility bills. Reminds about car maintenance, visa renewals, subscriptions.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Weather API</span><span class="tool-tag">Notion</span><span class="tool-tag">SMS/Telegram</span>
+        </div>
+      </div>
+
+      <!-- Network / Outreach -->
+      <div class="agent-card blue">
+        <div class="agent-header">
+          <div class="agent-icon">📡</div>
+          <div><div class="agent-title">Outreach Agent</div><div class="agent-subtitle">Lead gen, cold outreach, partnerships</div></div>
+        </div>
+        <div class="agent-desc">Monitors Clay lead queues. Generates personalized first lines. Manages Smartlead campaign sequences. Tracks reply rates. Identifies warm leads. Books discovery calls. Reports weekly outreach metrics.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Clay</span><span class="tool-tag">Smartlead</span><span class="tool-tag">Apollo</span><span class="tool-tag">LinkedIn</span>
+        </div>
+      </div>
+
+      <!-- Decision Support -->
+      <div class="agent-card purple">
+        <div class="agent-header">
+          <div class="agent-icon">🎯</div>
+          <div><div class="agent-title">Decision Agent</div><div class="agent-subtitle">Analysis, tradeoffs, clarity</div></div>
+        </div>
+        <div class="agent-desc">Helps think through high-stakes decisions. Builds pros/cons with weighted criteria. Challenges assumptions. Surfaces past decisions with similar patterns. Provides frameworks. Devil's advocate mode.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Claude Opus</span><span class="tool-tag">Memory Layer</span><span class="tool-tag">Notion</span>
+        </div>
+      </div>
+
+      <!-- Developer / Code -->
+      <div class="agent-card amber">
+        <div class="agent-header">
+          <div class="agent-icon">💻</div>
+          <div><div class="agent-title">Dev Agent</div><div class="agent-subtitle">Code review, debugging, DevOps</div></div>
+        </div>
+        <div class="agent-desc">Monitors GitHub repos. Reviews PRs. Flags broken builds. Runs automated testing reports. Suggests refactors. Tracks technical debt. Can scaffold new modules and write boilerplate on command.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">GitHub</span><span class="tool-tag">Vercel</span><span class="tool-tag">Railway</span><span class="tool-tag">Claude</span>
+        </div>
+      </div>
+
+      <!-- Travel / Logistics -->
+      <div class="agent-card coral">
+        <div class="agent-header">
+          <div class="agent-icon">✈️</div>
+          <div><div class="agent-title">Travel Agent</div><div class="agent-subtitle">Trips, bookings, logistics</div></div>
+        </div>
+        <div class="agent-desc">Plans and tracks business travel. Monitors flight prices for upcoming trips. Prepares pre-trip briefings (weather, visa requirements, timezone adjustments, currency). Reminds about passport/document validity.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Skyscanner API</span><span class="tool-tag">Google Maps</span><span class="tool-tag">Notion</span>
+        </div>
+      </div>
+
+      <!-- Reflection / Strategic -->
+      <div class="agent-card accent" style="border-color:rgba(212,255,58,0.2); background:rgba(212,255,58,0.04);">
+        <div class="agent-header">
+          <div class="agent-icon">🔭</div>
+          <div><div class="agent-title">Strategic / Reflection Agent</div><div class="agent-subtitle">Vision, goals, long-term thinking</div></div>
+        </div>
+        <div class="agent-desc">Your thinking partner for big picture. Runs weekly, monthly, quarterly reviews. Checks goal progress. Identifies drift between actions and values. Generates insight reports. Asks the hard questions. Keeps you aligned with your 10-year vision.</div>
+        <div class="agent-tools">
+          <span class="tool-tag">Claude Opus</span><span class="tool-tag">All memory layers</span><span class="tool-tag">Notion</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ MEMORY SYSTEM -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Persistent Intelligence</div>
+    <h2 class="section-title">The 4-Layer Memory System</h2>
+    <p class="section-desc">Memory is what transforms a tool into a partner. JARVIS remembers everything — and knows what to use when.</p>
+    <div class="memory-grid">
+      <div class="memory-card">
+        <h4>⚡ Working Memory</h4>
+        <p>Last 20 conversational turns, active session state, current task context. Held in-process. Fast retrieval. Wiped on session close.</p>
+        <ul>
+          <li>Current conversation buffer</li>
+          <li>Active task context</li>
+          <li>Pending confirmations / follow-ups</li>
+        </ul>
+      </div>
+      <div class="memory-card">
+        <h4>📖 Episodic Memory</h4>
+        <p>Stored in Supabase pgvector + Pinecone. Summarized events, decisions made, outcomes observed. Semantically searchable.</p>
+        <ul>
+          <li>Every significant decision + outcome</li>
+          <li>Business wins and losses</li>
+          <li>Important conversations summarized</li>
+          <li>Daily digest snapshots</li>
+        </ul>
+      </div>
+      <div class="memory-card">
+        <h4>🧬 Semantic Memory</h4>
+        <p>Structured facts in Supabase tables. Your preferences, goals, people you know, recurring patterns. Updated continuously.</p>
+        <ul>
+          <li>Your 1/3/10-year goals</li>
+          <li>People & relationship notes</li>
+          <li>Preferences + communication style</li>
+          <li>Known constraints (immigration, tax, etc.)</li>
+        </ul>
+      </div>
+      <div class="memory-card">
+        <h4>📜 Procedural Memory</h4>
+        <p>Your SOPs, frameworks, decision rules, and personal playbooks. Loaded into relevant agent contexts when needed.</p>
+        <ul>
+          <li>Proposal writing playbook</li>
+          <li>Client onboarding SOP</li>
+          <li>Weekly review template</li>
+          <li>How you handle X decision type</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ MASTER SYSTEM PROMPT -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Orchestrator Configuration</div>
+    <h2 class="section-title">The Master System Prompt</h2>
+    <p class="section-desc">This is the soul of JARVIS. It defines who you are, what you value, how priorities work, and how the system should think.</p>
+
+    <div class="prompt-block">
+      <span class="prompt-label">system_prompt.txt — orchestrator agent</span>
+<span class="prompt-comment"># IDENTITY</span>
+You are JARVIS — <span class="prompt-var">{{user_name}}</span>'s personal AI operating system.
+You have deep, persistent knowledge of his life, goals, values, and context.
+You are proactive, not just reactive. You surface what matters before being asked.
+
+<span class="prompt-comment"># ABOUT THE USER</span>
+Name: <span class="prompt-var">{{name}}</span> | Role: Founder & CEO, CodeBeez
+Location: St. John's, NL, Canada
+Goals: Build CodeBeez to $X MRR, achieve Canadian PR, create generational wealth
+Values: Islamic principles, integrity, excellence, family, global impact
+Energy profile: <span class="prompt-var">{{energy_peak_hours}}</span> are deep work hours — protect them
+
+<span class="prompt-comment"># PRIORITY FRAMEWORK (in order)</span>
+1. Health & Islamic obligations (never negotiate)
+2. High-leverage business activities (client delivery, sales)
+3. Learning & skill development
+4. Relationships & community
+5. Administrative & logistics
+
+<span class="prompt-comment"># MEMORY RETRIEVAL RULES</span>
+Before every response, retrieve: (a) relevant episodic memories, (b) current goals,
+(c) recent decisions in this domain. Never respond without context.
+
+<span class="prompt-comment"># PROACTIVE INTELLIGENCE RULES</span>
+Surface an unprompted insight if you notice:
+- A pattern the user hasn't seen (3+ data points)
+- A deadline approaching within 72 hours
+- A goal drift (actions ≠ stated priorities for 5+ days)
+- A risk in the pipeline, finances, or health trend
+
+<span class="prompt-comment"># ROUTING LOGIC</span>
+Classify every input: [domain] + [urgency: 1-5] + [agent] + [action type]
+Then route to the correct specialist agent with full context attached.
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ DAILY WORKFLOW -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Automation Workflows</div>
+    <h2 class="section-title">24-Hour Automated Rhythm</h2>
+    <p class="section-desc">These are the scheduled workflows that run without you lifting a finger. The system thinks for you, surfaces what matters, acts on what it can.</p>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+      <table class="workflow-table">
+        <thead>
+          <tr>
+            <th>Time / Trigger</th>
+            <th>Workflow</th>
+            <th>What JARVIS Does</th>
+            <th>Output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>6:00 AM daily</td>
+            <td>Morning Briefing</td>
+            <td>Reads sleep score, checks calendar, scans overnight emails, pulls weather, surfaces top 3 priorities for the day. Checks prayer times. Checks if any pipeline item needs attention.</td>
+            <td>Telegram voice/text brief</td>
+          </tr>
+          <tr>
+            <td>8:00 AM Mon</td>
+            <td>Weekly Business Review</td>
+            <td>Compiles revenue vs target, pipeline delta, client health scores, top tasks, content metrics, outreach stats. Flags anomalies.</td>
+            <td>Notion page + Telegram summary</td>
+          </tr>
+          <tr>
+            <td>Every 30 min</td>
+            <td>Inbox Triage</td>
+            <td>Reads new emails. Classifies by: action needed / FYI / spam. Drafts replies for action items. Flags VIP senders. Auto-archives newsletters after summarizing.</td>
+            <td>Gmail labels + draft folder</td>
+          </tr>
+          <tr>
+            <td>On: new lead</td>
+            <td>Lead Enrichment</td>
+            <td>Clay webhook fires. Research Agent enriches lead with LinkedIn, company info, pain points. Scores lead against ICP. Assigns to right Smartlead sequence.</td>
+            <td>HubSpot contact updated</td>
+          </tr>
+          <tr>
+            <td>On: invoice created</td>
+            <td>Payment Tracking</td>
+            <td>Creates Notion reminder. Day 3: gentle follow-up draft. Day 7: firmer follow-up. Day 14: escalation draft. Tracks in finance dashboard.</td>
+            <td>Auto-drafted emails</td>
+          </tr>
+          <tr>
+            <td>5:30 PM daily</td>
+            <td>End-of-Day Digest</td>
+            <td>Summarizes what was completed, what moved forward, what slipped. Surfaces tomorrow's calendar conflicts. Asks 3-question daily reflection. Logs mood data.</td>
+            <td>Telegram message</td>
+          </tr>
+          <tr>
+            <td>9:00 PM Sun</td>
+            <td>Weekly Reflection</td>
+            <td>Strategic Agent reviews week vs goals. Identifies the 1 highest-leverage action for next week. Generates next week's priority plan. Logs to second brain.</td>
+            <td>Notion weekly review</td>
+          </tr>
+          <tr>
+            <td>On: sleep logged</td>
+            <td>Recovery Protocol</td>
+            <td>If HRV below threshold or sleep < 6.5h, automatically reschedules any optional meetings, suggests light workout, adjusts caffeine timing recommendation.</td>
+            <td>Calendar adjustments + health tip</td>
+          </tr>
+          <tr>
+            <td>On: github push</td>
+            <td>Dev Watch</td>
+            <td>Monitors build status. If build fails, notifies with error summary. If PR opened, queues review. Tracks velocity metrics weekly.</td>
+            <td>Slack/Telegram alert</td>
+          </tr>
+          <tr>
+            <td>1st of month</td>
+            <td>Financial Snapshot</td>
+            <td>Reconciles Stripe revenue, pulls expense categories, computes net, projects next 90 days cashflow, checks tax provisions, surfaces top cost anomalies.</td>
+            <td>Finance Notion dashboard</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ TECH STACK -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Technology</div>
+    <h2 class="section-title">The Definitive Stack</h2>
+    <p class="section-desc">Chosen for reliability, cost-efficiency, and the ability to run indefinitely without babysitting.</p>
+    <div class="tech-grid">
+      <div class="tech-item"><div class="tech-icon">🧠</div><div><div class="tech-name">Claude API (Anthropic)</div><div class="tech-role">Intelligence backbone — Haiku for routing, Sonnet for execution, Opus for strategy</div></div></div>
+      <div class="tech-item"><div class="tech-icon">⚙️</div><div><div class="tech-name">n8n (self-hosted)</div><div class="tech-role">All automation workflows, triggers, scheduled jobs</div></div></div>
+      <div class="tech-item"><div class="tech-icon">🏛</div><div><div class="tech-name">Supabase</div><div class="tech-role">Postgres DB + pgvector + Auth + Storage</div></div></div>
+      <div class="tech-item"><div class="tech-icon">🔍</div><div><div class="tech-name">Pinecone / Qdrant</div><div class="tech-role">Semantic vector search for memory retrieval</div></div></div>
+      <div class="tech-item"><div class="tech-icon">🔴</div><div><div class="tech-name">Redis + Bull MQ</div><div class="tech-role">Job queuing, rate limiting, retry logic</div></div></div>
+      <div class="tech-item"><div class="tech-icon">🐍</div><div><div class="tech-name">Python (FastAPI)</div><div class="tech-role">Agent logic, API server, orchestration</div></div></div>
+      <div class="tech-item"><div class="tech-icon">⚛️</div><div><div class="tech-name">React + TypeScript</div><div class="tech-role">Mission Control dashboard UI</div></div></div>
+      <div class="tech-item"><div class="tech-icon">🐳</div><div><div class="tech-name">Docker Compose</div><div class="tech-role">All services containerized, one command to run</div></div></div>
+      <div class="tech-item"><div class="tech-icon">☁️</div><div><div class="tech-name">Railway / DigitalOcean</div><div class="tech-role">Always-on VPS with auto-restart</div></div></div>
+      <div class="tech-item"><div class="tech-icon">🎙</div><div><div class="tech-name">Whisper + ElevenLabs</div><div class="tech-role">Voice-in, voice-out for natural conversation</div></div></div>
+      <div class="tech-item"><div class="tech-icon">📨</div><div><div class="tech-name">Telegram Bot API</div><div class="tech-role">Primary mobile interface — instant, reliable</div></div></div>
+      <div class="tech-item"><div class="tech-icon">📊</div><div><div class="tech-name">Sentry + BetterUptime</div><div class="tech-role">Error tracking, uptime monitoring, cost alerts</div></div></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ SECURITY -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Security & Privacy</div>
+    <h2 class="section-title">Non-Negotiable Security Design</h2>
+    <p class="section-desc">You're giving this system access to your entire life. Security isn't optional.</p>
+    <div class="security-grid">
+      <div class="sec-item">
+        <div class="icon">🔐</div>
+        <h4>Secrets Management</h4>
+        <p>All API keys in environment variables or HashiCorp Vault. Never in code or logs. Rotate per-integration. Separate dev/prod credentials.</p>
+      </div>
+      <div class="sec-item">
+        <div class="icon">🏰</div>
+        <h4>Auth Boundaries</h4>
+        <p>Each agent runs with least-privilege access. Scoped tokens per integration. No agent can access another's credentials. Auth at every API endpoint.</p>
+      </div>
+      <div class="sec-item">
+        <div class="icon">📝</div>
+        <h4>Audit Logging</h4>
+        <p>Every agent action is logged with timestamp, agent ID, input summary, and output. Tamper-proof. Stored for 90 days. Reviewable in Mission Control.</p>
+      </div>
+      <div class="sec-item">
+        <div class="icon">🛡</div>
+        <h4>Encrypted at Rest</h4>
+        <p>All personal data encrypted in Supabase. Vector embeddings anonymized where possible. Sensitive fields (financial data, health) double-encrypted.</p>
+      </div>
+      <div class="sec-item">
+        <div class="icon">⛔</div>
+        <h4>Confirmation Gates</h4>
+        <p>Any irreversible action (send email, delete, publish, pay) requires explicit confirmation via Telegram before execution. No silent mutations.</p>
+      </div>
+      <div class="sec-item">
+        <div class="icon">💸</div>
+        <h4>Cost Guardrails</h4>
+        <p>Per-agent token budgets. Daily API spend caps with alerts. Model routing logic to minimize cost (Haiku first, escalate only when needed).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ ROADMAP -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Implementation</div>
+    <h2 class="section-title">12-Week Build Roadmap</h2>
+    <p class="section-desc">Build in phases. Each phase delivers real value. You're not waiting 12 weeks to get anything useful — you're adding intelligence incrementally.</p>
+
+    <div class="roadmap">
+      <div class="roadmap-phase">
+        <div class="roadmap-dot active"></div>
+        <div class="phase-label">Phase 1 — Weeks 1–2</div>
+        <div class="phase-title">Foundation: Core Infrastructure + Command Interface</div>
+        <div class="phase-desc">Spin up Docker environment. Deploy n8n. Set up Supabase schema (memories, context, audit_log tables). Build Telegram bot with basic command routing. Connect Claude API with your master system prompt. Build the Orchestrator agent with basic intent classification.</div>
+        <div class="phase-tags">
+          <span class="phase-tag">Docker</span><span class="phase-tag">Supabase</span><span class="phase-tag">Telegram bot</span><span class="phase-tag">Claude API</span><span class="phase-tag">n8n</span>
+        </div>
+      </div>
+
+      <div class="roadmap-phase">
+        <div class="roadmap-dot"></div>
+        <div class="phase-label">Phase 2 — Weeks 3–4</div>
+        <div class="phase-title">Power Core: Business + Comms + Calendar Agents</div>
+        <div class="phase-desc">Connect Gmail, Google Calendar, Notion, HubSpot, Stripe. Build Business, Comms, and Time agents. Launch Morning Briefing and EOD Digest workflows. First real automation: inbox triage and pipeline monitoring running daily.</div>
+        <div class="phase-tags">
+          <span class="phase-tag">Gmail</span><span class="phase-tag">HubSpot</span><span class="phase-tag">Calendar</span><span class="phase-tag">Morning Briefing</span><span class="phase-tag">Inbox Triage</span>
+        </div>
+      </div>
+
+      <div class="roadmap-phase">
+        <div class="roadmap-dot"></div>
+        <div class="phase-label">Phase 3 — Weeks 5–6</div>
+        <div class="phase-title">Memory Layer: Persistent Intelligence</div>
+        <div class="phase-desc">Implement pgvector semantic search. Build memory write/read utilities. Create daily summarization job. Start populating episodic and semantic memory. Add memory retrieval to all agent prompts. System starts feeling like it "knows" you.</div>
+        <div class="phase-tags">
+          <span class="phase-tag">pgvector</span><span class="phase-tag">Pinecone</span><span class="phase-tag">Memory schemas</span><span class="phase-tag">Daily summarizer</span>
+        </div>
+      </div>
+
+      <div class="roadmap-phase">
+        <div class="roadmap-dot"></div>
+        <div class="phase-label">Phase 4 — Weeks 7–8</div>
+        <div class="phase-title">Life Domains: Wellness + Finance + Spiritual Agents</div>
+        <div class="phase-desc">Connect Oura/Apple Health. Build Wellness, Finance, and Spiritual agents. Add prayer time workflow. Monthly financial snapshot automation. Sleep-based calendar adjustment logic. Weekly reflection with Strategic Agent.</div>
+        <div class="phase-tags">
+          <span class="phase-tag">Oura API</span><span class="phase-tag">Stripe</span><span class="phase-tag">Prayer Times API</span><span class="phase-tag">Recovery Protocol</span>
+        </div>
+      </div>
+
+      <div class="roadmap-phase">
+        <div class="roadmap-dot"></div>
+        <div class="phase-label">Phase 5 — Weeks 9–10</div>
+        <div class="phase-title">Extended Agents: Outreach + Content + Learning + Dev</div>
+        <div class="phase-desc">Wire Clay + Smartlead for outreach automation. Build Content agent with LinkedIn scheduling. Connect Readwise for learning agent. Dev agent hooks into GitHub. All 18 agents operational. Cross-agent handoffs working.</div>
+        <div class="phase-tags">
+          <span class="phase-tag">Clay</span><span class="phase-tag">Smartlead</span><span class="phase-tag">Readwise</span><span class="phase-tag">GitHub</span><span class="phase-tag">LinkedIn</span>
+        </div>
+      </div>
+
+      <div class="roadmap-phase">
+        <div class="roadmap-dot"></div>
+        <div class="phase-label">Phase 6 — Weeks 11–12</div>
+        <div class="phase-title">Mission Control + Voice + Production Hardening</div>
+        <div class="phase-desc">Build React Mission Control dashboard. Add Whisper voice input + ElevenLabs voice output. Security audit — confirmation gates, audit logs, cost caps. Full monitoring setup. Documentation. System is production-hardened and self-sustaining.</div>
+        <div class="phase-tags">
+          <span class="phase-tag">React Dashboard</span><span class="phase-tag">Whisper</span><span class="phase-tag">ElevenLabs</span><span class="phase-tag">Sentry</span><span class="phase-tag">BetterUptime</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ COST -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Economics</div>
+    <h2 class="section-title">Estimated Monthly Cost</h2>
+    <p class="section-desc">Intelligently routed across Haiku/Sonnet/Opus. Total cost scales with usage but stays lean with smart model selection.</p>
+    <div class="cost-grid">
+      <div class="cost-card">
+        <span class="cost-num">~$30</span>
+        <div class="cost-label">Claude API</div>
+        <div class="cost-detail">Haiku for routing (90%), Sonnet for execution, Opus for strategy only</div>
+      </div>
+      <div class="cost-card">
+        <span class="cost-num">~$20</span>
+        <div class="cost-label">Infrastructure</div>
+        <div class="cost-detail">Railway/DO VPS + Supabase free tier + Redis</div>
+      </div>
+      <div class="cost-card">
+        <span class="cost-num">~$25</span>
+        <div class="cost-label">Integrations</div>
+        <div class="cost-detail">ElevenLabs, Pinecone, monitoring tools, misc APIs</div>
+      </div>
+      <div class="cost-card">
+        <span class="cost-num" style="font-size:22px">~$75/mo</span>
+        <div class="cost-label">Total</div>
+        <div class="cost-detail">For a system that runs your entire life, business, and personal world 24/7</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ WHAT SEPARATES WORLD CLASS -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">The Difference</div>
+    <h2 class="section-title">What Makes This World-Class</h2>
+    <p class="section-desc">Most "AI assistants" are just chatbots you have to manually prompt. This is different in 5 fundamental ways.</p>
+    <div class="two-col">
+      <div class="info-block">
+        <h4>🔄 Proactive, not reactive</h4>
+        <ul>
+          <li><span class="li-num">01</span>Surfaces insights before you ask — pattern detection across domains</li>
+          <li><span class="li-num">02</span>Monitors thresholds and fires alerts when something needs attention</li>
+          <li><span class="li-num">03</span>Detects drift between stated goals and actual behavior</li>
+          <li><span class="li-num">04</span>Anticipates needs based on your calendar and history</li>
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4>🧠 Continuous memory</h4>
+        <ul>
+          <li><span class="li-num">01</span>Remembers decisions made 6 months ago and connects them to today</li>
+          <li><span class="li-num">02</span>Tracks your evolving preferences without you re-explaining</li>
+          <li><span class="li-num">03</span>Builds a model of you — not just your data, but your patterns</li>
+          <li><span class="li-num">04</span>Gets smarter the longer it runs — compounding intelligence</li>
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4>⚡ Autonomous execution</h4>
+        <ul>
+          <li><span class="li-num">01</span>Acts on your behalf — not just drafts, but sends (with gates)</li>
+          <li><span class="li-num">02</span>Handles multi-step workflows with no human in the loop</li>
+          <li><span class="li-num">03</span>Delegates to the right sub-agent automatically</li>
+          <li><span class="li-num">04</span>Self-heals — retries failed jobs, escalates when stuck</li>
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4>🌐 Whole-life coverage</h4>
+        <ul>
+          <li><span class="li-num">01</span>Not just work — covers health, faith, relationships, learning</li>
+          <li><span class="li-num">02</span>Cross-domain awareness: knows that bad sleep affects business decisions</li>
+          <li><span class="li-num">03</span>Context from every area of life informs each domain</li>
+          <li><span class="li-num">04</span>One unified system, not 12 separate tools</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ FOOTER -->
+<div class="footer">
+  <div class="container">
+    <div class="footer-title">Built for Abid Redwan · CodeBeez</div>
+    <p>A personal AI OS that scales with your ambitions — from $0 to generational wealth, from St. John's to the world.</p>
+    <div style="margin-top:16px;">
+      <span class="tag-accent">v2.0 · 18 Agents · 12 Domains · World-Class</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
