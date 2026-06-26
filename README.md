@@ -1,49 +1,66 @@
 # JARVIS Mission Control
 
-This repo contains three things:
+A prototype of a personal AI "operating system" — 18 specialized agents, automated
+workflows, an approval gate for risky actions, and a memory/audit layer — wrapped in
+an interactive Mission Control dashboard.
 
-- `jarvis-blueprint.html`: the original long-form architecture blueprint.
-- `index.html` plus `src/`: an interactive Mission Control product prototype.
-- `backend/`: a lightweight local API and core routing package for agents, workflows, approvals, memory, audit, integrations, and costs.
+**Live demo:** https://aredwan-xyz.github.io/jarvis-os/
 
-## Run Locally
+> The live site is static (GitHub Pages), so the UI renders fully but the
+> backend-powered panels show an "API offline" notice. Run it locally (below) for
+> the complete experience, including live routing, memory search, and the API.
+
+## What's in here
+
+| Path | What it is |
+| --- | --- |
+| `index.html` + `src/landing.*` | Marketing landing page with a live command-routing demo. |
+| `mission-control.html` + `src/app.js` | The interactive Mission Control dashboard (agents, workflows, approvals, audit, costs, memory). |
+| `jarvis-blueprint.html` | The original long-form architecture blueprint (the vision doc). |
+| `backend/` | A dependency-free local API + core routing package (agents, workflows, approvals, memory, audit, integrations, costs). |
+| `scripts/validate.js` | Structural checks (mount points, dev wiring, 18-agent catalog). |
+
+## Run locally
 
 ```bash
 npm run dev
 ```
 
-Then open:
+Then open http://localhost:4173 — the local server serves both the UI and the API.
 
-```text
-http://localhost:4173
-```
+### API endpoints
 
-The local server exposes both the app and API endpoints:
-
-- `POST /api/route`
-- `GET /api/agents`
-- `GET /api/workflows`
-- `GET /api/approvals`
-- `GET /api/audit`
-- `GET /api/memory/search?q=finance`
-- `GET /api/integrations`
-- `GET /api/costs`
+| Method | Endpoint | Returns |
+| --- | --- | --- |
+| `POST` | `/api/route` | Routes a natural-language message to an agent (keyword router). |
+| `GET` | `/api/health` | Service health check. |
+| `GET` | `/api/agents` | The 18-agent catalog. |
+| `GET` | `/api/workflows` | Scheduled / event-driven workflows. |
+| `GET` | `/api/approvals` | Pending human-in-the-loop approvals. |
+| `GET` | `/api/audit` | Audit log events. |
+| `GET` | `/api/integrations` | Connected integration status. |
+| `GET` | `/api/costs` | Cost tracking. |
+| `GET` | `/api/memory/search?q=finance` | Searches the memory store. |
 
 ## Validate
 
 ```bash
-npm run validate
-npm run test:core
+npm run validate     # structural checks
+npm run test:core    # backend unit tests
 ```
 
-The validation script checks that the product UI mount points exist, the local API server is wired into the dev command, and the agent catalog stays aligned with the expected 18-agent blueprint.
+## Status & direction
 
-## Project Direction
+This implementation is intentionally **dependency-free** so v1 runs anywhere. It is a
+faithful skeleton — the data model and UX are real, but the orchestration is a
+keyword router and the integrations, memory, and workflows are demo data, not live
+services.
 
-The current implementation is intentionally dependency-free so the first version can run anywhere. The next milestone is to replace the lightweight API with a production stack:
+The roadmap toward a production stack:
 
-- Frontend: React + TypeScript Mission Control dashboard.
-- Backend: FastAPI orchestrator API.
-- Storage: Postgres/Supabase schema for agents, memories, workflows, integrations, and audit logs.
-- Queue: Redis-backed jobs for scheduled and event-driven workflows.
-- Automation: n8n workflows for external integrations.
+1. **FastAPI core** — replace the stdlib API with authenticated, typed endpoints.
+2. **Real orchestrator** — swap keyword routing for an LLM router (Claude tool-calling).
+3. **Memory infrastructure** — Postgres + pgvector, write policies, semantic retrieval.
+4. **Real integrations** — Gmail, Calendar, Notion, Stripe, GitHub, Telegram via OAuth.
+5. **Automation engine** — Redis queue + n8n dispatch, retries, rate limits, dead-letter monitoring.
+6. **Production hardening** — auth, secrets, deployment, cost caps, observability, red-team safety tests.
