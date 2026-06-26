@@ -390,8 +390,8 @@ async function boot() {
     renderCosts();
     await renderMemory(document.querySelector("#memoryQuery").value);
   } catch (error) {
-    document.querySelector("#apiStatus").textContent = "offline";
-    document.querySelector("#routeResult").innerHTML = "<p>Local API is offline. Run <code>npm run dev</code> for the full experience.</p>";
+    document.querySelector("#apiStatus").textContent = "static preview";
+    document.querySelector("#routeResult").innerHTML = "<p>This is a static preview &mdash; the full UI is live, but routing, memory, and audit need the local backend. Run <code>npm run dev</code> for the complete experience.</p>";
   }
 }
 

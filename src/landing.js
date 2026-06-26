@@ -193,7 +193,7 @@ async function boot() {
     document.querySelector("#landingApiStatus").textContent = "online";
     document.querySelector("#landingApiStatus").classList.add("online");
   } catch (error) {
-    document.querySelector("#landingApiStatus").textContent = "offline";
+    document.querySelector("#landingApiStatus").textContent = "static preview";
   }
 }
 
