@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARVIS Mission Control</title>
+    <link rel="stylesheet" href="src/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Mission navigation">
+        <a class="brand" href="#overview" aria-label="JARVIS Mission Control home">
+          <span class="brand-mark">J</span>
+          <span>
+            <strong>JARVIS</strong>
+            <small>Mission Control</small>
+          </span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="#overview" class="nav-link active" data-section="overview">Overview</a>
+          <a href="#agents" class="nav-link" data-section="agents">Agents</a>
+          <a href="#workflows" class="nav-link" data-section="workflows">Workflows</a>
+          <a href="#approvals" class="nav-link" data-section="approvals">Approvals</a>
+          <a href="#memory" class="nav-link" data-section="memory">Memory</a>
+          <a href="#operations" class="nav-link" data-section="operations">Ops</a>
+        </nav>
+
+        <div class="sidebar-panel">
+          <span class="eyebrow">Operating Mode</span>
+          <strong>Demo Kernel</strong>
+          <p>Local API, route engine, memory search, approvals, audit trail.</p>
+        </div>
+      </aside>
+
+      <main>
+        <section id="overview" class="hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">World-Class Architecture v3.0</span>
+            <h1>Executive command center for a personal AI operating system.</h1>
+            <p>
+              JARVIS now feels like an operational product: route requests, inspect agent
+              readiness, stage risky actions, search memory, and watch autonomous workflows.
+            </p>
+          </div>
+
+          <form id="commandForm" class="command-center">
+            <div class="panel-top">
+              <span>orchestrator.route</span>
+              <span id="apiStatus" class="status-pill">checking</span>
+            </div>
+            <label for="commandInput">Command</label>
+            <textarea id="commandInput" rows="4">Draft a payment reminder for the overdue Stripe invoice and send it today.</textarea>
+            <div class="command-actions">
+              <button class="button primary" type="submit">Route Command</button>
+              <button id="loadScenario" class="button" type="button">Load Scenario</button>
+            </div>
+            <div id="routeResult" class="route-result" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="metrics-grid" aria-label="System metrics">
+          <article><strong>18</strong><span>Domain Agents</span></article>
+          <article><strong>8</strong><span>Live Workflows</span></article>
+          <article><strong>3</strong><span>Approval Gates</span></article>
+          <article><strong>70%</strong><span>Budget Remaining</span></article>
+        </section>
+
+        <section class="section dashboard-grid" aria-label="Today intelligence">
+          <article class="panel large-panel">
+            <div class="section-header compact">
+              <span class="eyebrow">Intelligence Feed</span>
+              <h2>What changed since yesterday</h2>
+            </div>
+            <div id="intelligenceFeed" class="signal-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="section-header compact">
+              <span class="eyebrow">Model Routing</span>
+              <h2>Cost Control</h2>
+            </div>
+            <div id="costPanel" class="cost-panel"></div>
+          </article>
+        </section>
+
+        <section id="agents" class="section" aria-labelledby="agents-title">
+          <div class="section-header split">
+            <div>
+              <span class="eyebrow">Agent Mesh</span>
+              <h2 id="agents-title">Specialists with rules, tools, and limits</h2>
+            </div>
+            <div class="toolbar" role="tablist" aria-label="Agent filters">
+              <button class="chip active" type="button" data-filter="all">All</button>
+              <button class="chip" type="button" data-filter="business">Business</button>
+              <button class="chip" type="button" data-filter="life">Life</button>
+              <button class="chip" type="button" data-filter="intelligence">Intel</button>
+            </div>
+          </div>
+          <div id="agentGrid" class="agent-grid"></div>
+        </section>
+
+        <section id="workflows" class="section" aria-labelledby="workflows-title">
+          <div class="section-header split">
+            <div>
+              <span class="eyebrow">Automation</span>
+              <h2 id="workflows-title">Workflow command queue</h2>
+            </div>
+            <button id="simulateRun" class="button compact" type="button">Simulate Run</button>
+          </div>
+          <div id="workflowList" class="workflow-list"></div>
+        </section>
+
+        <section id="approvals" class="section dashboard-grid" aria-label="Approval and audit panels">
+          <article class="panel">
+            <div class="section-header compact">
+              <span class="eyebrow">Trust Layer</span>
+              <h2>Approval Inbox</h2>
+            </div>
+            <div id="approvalList" class="approval-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="section-header compact">
+              <span class="eyebrow">Traceability</span>
+              <h2>Audit Trail</h2>
+            </div>
+            <div id="auditList" class="audit-list"></div>
+          </article>
+        </section>
+
+        <section id="memory" class="section dashboard-grid" aria-label="Memory and integrations">
+          <article class="panel large-panel">
+            <div class="section-header compact">
+              <span class="eyebrow">Persistent Intelligence</span>
+              <h2>Memory Explorer</h2>
+            </div>
+            <form id="memoryForm" class="search-row">
+              <input id="memoryQuery" type="search" value="finance calendar" aria-label="Search memory">
+              <button class="button compact" type="submit">Search</button>
+            </form>
+            <div id="memoryList" class="memory-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="section-header compact">
+              <span class="eyebrow">Connectors</span>
+              <h2>Integration Status</h2>
+            </div>
+            <div id="integrationList" class="integration-list"></div>
+          </article>
+        </section>
+
+        <section id="operations" class="section" aria-labelledby="ops-title">
+          <div class="section-header">
+            <span class="eyebrow">Build Path</span>
+            <h2 id="ops-title">From demo kernel to production AI OS</h2>
+          </div>
+          <div id="roadmapList" class="roadmap-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="agentDrawer" class="drawer" aria-hidden="true">
+      <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+        <button id="closeDrawer" class="icon-button" type="button" aria-label="Close agent detail">X</button>
+        <div id="drawerContent"></div>
+      </div>
+    </div>
+
+    <script src="src/app.js"></script>
+  </body>
+</html>

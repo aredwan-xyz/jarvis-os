@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARVIS — Personal AI Operating System</title>
+    <meta name="description" content="JARVIS is a personal AI operating system that routes work to specialist agents, remembers context, stages risky actions for approval, and automates high-leverage workflows.">
+    <link rel="stylesheet" href="src/landing.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="JARVIS home">
+        <span class="brand-mark">J</span>
+        <span>JARVIS</span>
+      </a>
+      <button id="menuToggle" class="icon-button menu-toggle" type="button" aria-label="Toggle navigation">Menu</button>
+      <nav id="siteNav" class="site-nav" aria-label="Primary navigation">
+        <a href="#system">System</a>
+        <a href="#demo">Demo</a>
+        <a href="#value">Value</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="mission-control.html">Mission Control</a>
+      </nav>
+      <button class="button compact open-demo" type="button">Request Demo</button>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="JARVIS hero">
+        <canvas id="heroScene" aria-hidden="true"></canvas>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <span class="eyebrow">Personal AI Operating System</span>
+          <h1>JARVIS</h1>
+          <p>
+            A command layer for your life and business: specialist agents, persistent memory,
+            approval-gated execution, and autonomous workflows that compound every week.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="mission-control.html">Launch Mission Control</a>
+            <a class="button" href="#demo">Try Live Routing</a>
+          </div>
+        </div>
+        <div class="hero-status" aria-label="System status">
+          <span>18 agents online</span>
+          <span>8 workflows staged</span>
+          <span>approval gates active</span>
+        </div>
+      </section>
+
+      <section class="metric-strip" aria-label="JARVIS metrics">
+        <article><strong>18</strong><span>Domain agents</span></article>
+        <article><strong>24/7</strong><span>Event monitoring</span></article>
+        <article><strong>90%</strong><span>Routine work staged</span></article>
+        <article><strong>$75</strong><span>Estimated monthly ops</span></article>
+      </section>
+
+      <section id="system" class="section">
+        <div class="section-header">
+          <span class="eyebrow">The System</span>
+          <h2>Not a chatbot. A private operating layer.</h2>
+          <p>JARVIS routes requests, retrieves context, delegates to agents, runs workflows, and stops before any action that needs your explicit approval.</p>
+        </div>
+        <div class="feature-grid">
+          <article>
+            <span>01</span>
+            <h3>Agent Mesh</h3>
+            <p>Business, finance, comms, calendar, wellness, research, dev, strategy, and more, each with tools and boundaries.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Persistent Memory</h3>
+            <p>Semantic facts, episodic decisions, playbooks, and active context make recommendations sharper over time.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Autonomous Workflows</h3>
+            <p>Morning briefings, inbox triage, lead enrichment, payment tracking, recovery protocols, and weekly reviews.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Trust Gates</h3>
+            <p>Emails, calendar edits, publishing, payments, and destructive actions are staged for approval with full rationale.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="demo" class="section demo-section">
+        <div class="section-header">
+          <span class="eyebrow">Live Demo</span>
+          <h2>Route a command through the orchestrator.</h2>
+        </div>
+        <div class="demo-grid">
+          <form id="landingCommandForm" class="demo-panel">
+            <div class="panel-top">
+              <span>POST /api/route</span>
+              <span id="landingApiStatus" class="status-pill">checking</span>
+            </div>
+            <label for="landingCommand">Command</label>
+            <textarea id="landingCommand" rows="5">Review my overdue Stripe invoices and draft follow-ups for anything at risk today.</textarea>
+            <div class="demo-actions">
+              <button class="button primary" type="submit">Route Command</button>
+              <button id="randomCommand" class="button" type="button">New Example</button>
+            </div>
+          </form>
+          <article id="landingRouteResult" class="route-card" aria-live="polite">
+            <span class="eyebrow">Awaiting command</span>
+            <h3>JARVIS will classify domain, urgency, action type, memories, and approval needs.</h3>
+          </article>
+        </div>
+      </section>
+
+      <section id="value" class="section value-section">
+        <div class="section-header">
+          <span class="eyebrow">Business Value</span>
+          <h2>Estimate the weekly leverage.</h2>
+          <p>Adjust the assumptions and see what a personal AI operating system can return before it even touches advanced autonomy.</p>
+        </div>
+        <div class="roi-grid">
+          <form id="roiForm" class="roi-controls">
+            <label>
+              Hours saved per week
+              <input id="hoursSaved" type="range" min="2" max="30" value="10">
+              <strong id="hoursSavedValue">10</strong>
+            </label>
+            <label>
+              Effective hourly value
+              <input id="hourlyValue" type="range" min="25" max="500" value="150" step="25">
+              <strong id="hourlyValueValue">$150</strong>
+            </label>
+            <label>
+              Extra deals influenced per month
+              <input id="dealsInfluenced" type="range" min="0" max="10" value="2">
+              <strong id="dealsInfluencedValue">2</strong>
+            </label>
+          </form>
+          <div class="roi-output">
+            <span class="eyebrow">Estimated leverage</span>
+            <strong id="weeklyValue">$1,500/wk</strong>
+            <p id="monthlyValue">$6,900/month in time and pipeline leverage.</p>
+            <button class="button open-demo" type="button">Design My Version</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section proof-section">
+        <div class="section-header">
+          <span class="eyebrow">Operating Rhythm</span>
+          <h2>From signal to action without losing control.</h2>
+        </div>
+        <div class="timeline">
+          <article><span>06:00</span><strong>Morning Briefing</strong><p>Calendar, sleep, inbox, weather, prayer times, and pipeline risks.</p></article>
+          <article><span>Live</span><strong>Event Triggers</strong><p>New leads, invoices, GitHub pushes, meetings, and recovery signals.</p></article>
+          <article><span>Gate</span><strong>Approval Inbox</strong><p>Risky actions are staged with rationale, destination, and rollback context.</p></article>
+          <article><span>Weekly</span><strong>Reflection Loop</strong><p>Goal drift, high-leverage actions, and system improvements are surfaced.</p></article>
+        </div>
+      </section>
+
+      <section id="roadmap" class="section roadmap-section">
+        <div class="section-header">
+          <span class="eyebrow">Implementation</span>
+          <h2>Build path from demo to production.</h2>
+        </div>
+        <div class="roadmap">
+          <article class="active"><span>Now</span><strong>Interactive Demo Kernel</strong><p>Landing page, Mission Control, route API, memory search, approvals, audit, and cost panels.</p></article>
+          <article><span>Next</span><strong>Authenticated Core</strong><p>FastAPI, auth, typed schemas, persistent audit logs, and environment-separated secrets.</p></article>
+          <article><span>Then</span><strong>Real Integrations</strong><p>Gmail, Calendar, Notion, Stripe, GitHub, Telegram, and OAuth health monitoring.</p></article>
+          <article><span>Scale</span><strong>Autonomy Engine</strong><p>Redis queues, n8n workflows, retries, cost caps, observability, and production guardrails.</p></article>
+        </div>
+      </section>
+
+      <section class="section faq-section">
+        <div class="section-header">
+          <span class="eyebrow">FAQ</span>
+          <h2>Trust before autonomy.</h2>
+        </div>
+        <div class="faq-list">
+          <details open>
+            <summary>Can it actually take action?</summary>
+            <p>Yes, but actions are staged behind confirmation gates until the user explicitly approves the exact action, destination, and rationale.</p>
+          </details>
+          <details>
+            <summary>What makes it different from ChatGPT?</summary>
+            <p>JARVIS is designed around persistent memory, specialist agents, scheduled workflows, integrations, auditability, and proactive monitoring.</p>
+          </details>
+          <details>
+            <summary>Is this production-ready?</summary>
+            <p>The current repo is a working demo kernel. The next production step is authenticated FastAPI, persistent storage, OAuth integrations, queues, and observability.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <span class="eyebrow">Ready</span>
+        <h2>Give your ambitions an operating system.</h2>
+        <div class="hero-actions">
+          <a class="button primary" href="mission-control.html">Open Mission Control</a>
+          <button class="button open-demo" type="button">Request Demo</button>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="demoDialog" class="demo-dialog">
+      <form method="dialog" class="dialog-panel">
+        <button class="icon-button close-dialog" value="cancel" aria-label="Close demo request">X</button>
+        <span class="eyebrow">Request Demo</span>
+        <h2>Design your JARVIS build.</h2>
+        <label>Name<input id="leadName" type="text" required placeholder="Abid Redwan"></label>
+        <label>Highest-value workflow<input id="leadWorkflow" type="text" required placeholder="Inbox triage, lead enrichment, daily briefing..."></label>
+        <label>Email<input id="leadEmail" type="email" required placeholder="you@example.com"></label>
+        <button id="submitLead" class="button primary" value="default" type="submit">Save Request</button>
+        <p id="leadStatus" class="lead-status"></p>
+      </form>
+    </dialog>
+
+    <script src="src/landing.js"></script>
+  </body>
+</html>

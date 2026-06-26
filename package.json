@@ -1,0 +1,19 @@
+{
+  "name": "jarvis-mission-control",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Interactive Mission Control prototype for the JARVIS personal AI operating system.",
+  "scripts": {
+    "dev": "PYTHONPATH=backend python3 backend/server.py",
+    "validate": "node scripts/validate.js",
+    "test:core": "PYTHONPATH=backend python3 -m unittest discover backend/tests"
+  },
+  "keywords": [
+    "jarvis",
+    "ai",
+    "agents",
+    "automation",
+    "mission-control"
+  ],
+  "license": "UNLICENSED"
+}
