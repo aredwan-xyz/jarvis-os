@@ -1,21 +1,26 @@
 :root {
   color-scheme: dark;
-  --bg: #08090b;
+  /* Aligned to jarvis-blueprint.html design tokens */
+  --bg: #0a0a0a;
   --panel: #111419;
   --panel-2: #171b22;
   --panel-3: #1e242c;
-  --line: rgba(255, 255, 255, 0.1);
+  --line: rgba(255, 255, 255, 0.07);
   --line-strong: rgba(255, 255, 255, 0.2);
-  --text: #f4f0e8;
+  --text: #f0efe8;
   --muted: #aca79d;
   --quiet: #706c64;
-  --lime: #d7ff43;
-  --cyan: #4ed7c5;
-  --blue: #7dadff;
-  --coral: #ff7a61;
-  --amber: #ffc063;
-  --pink: #ff82b7;
+  --lime: #d4ff3a;
+  --cyan: #2fdba8;
+  --blue: #4488ff;
+  --coral: #ff6b4a;
+  --amber: #ffb347;
+  --purple: #b47fff;
+  --pink: #ff6eb4;
   --shadow: 0 28px 80px rgba(0, 0, 0, 0.36);
+  --font-body: "DM Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 * {
@@ -29,11 +34,11 @@ html {
 body {
   margin: 0;
   background:
-    linear-gradient(180deg, rgba(215, 255, 67, 0.045), transparent 340px),
-    linear-gradient(90deg, rgba(78, 215, 197, 0.04), transparent 520px),
+    linear-gradient(180deg, rgba(212, 255, 58, 0.05), transparent 340px),
+    linear-gradient(90deg, rgba(47, 219, 168, 0.04), transparent 520px),
     var(--bg);
   color: var(--text);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.55;
 }
@@ -64,7 +69,7 @@ button {
   top: 0;
   height: 100vh;
   border-right: 1px solid var(--line);
-  background: rgba(8, 9, 11, 0.9);
+  background: rgba(10, 10, 10, 0.9);
   backdrop-filter: blur(18px);
   padding: 24px;
   display: flex;
@@ -81,8 +86,8 @@ button {
 .brand-mark {
   width: 42px;
   height: 42px;
-  border: 1px solid rgba(215, 255, 67, 0.36);
-  background: rgba(215, 255, 67, 0.11);
+  border: 1px solid rgba(212, 255, 58, 0.36);
+  background: rgba(212, 255, 58, 0.11);
   color: var(--lime);
   display: grid;
   place-items: center;
@@ -184,6 +189,8 @@ p {
 }
 
 h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
   margin-bottom: 20px;
   max-width: 840px;
   font-size: clamp(42px, 6vw, 78px);
@@ -192,6 +199,8 @@ h1 {
 }
 
 h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
   margin-bottom: 0;
   font-size: clamp(24px, 3vw, 40px);
   line-height: 1.1;
@@ -222,7 +231,7 @@ h3 {
   border-bottom: 1px solid var(--line);
   padding: 12px 14px;
   color: var(--quiet);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
 }
 
@@ -255,7 +264,7 @@ textarea {
 
 textarea:focus,
 input:focus {
-  border-color: rgba(215, 255, 67, 0.44);
+  border-color: rgba(212, 255, 58, 0.44);
 }
 
 .command-actions,
@@ -287,8 +296,8 @@ input:focus {
 .chip:hover,
 .chip.active,
 .link-button:hover {
-  border-color: rgba(215, 255, 67, 0.46);
-  background: rgba(215, 255, 67, 0.08);
+  border-color: rgba(212, 255, 58, 0.46);
+  background: rgba(212, 255, 58, 0.08);
 }
 
 .button.primary,
@@ -326,8 +335,8 @@ input:focus {
 .status-pill.online,
 .state-pill.ready {
   color: var(--lime);
-  border-color: rgba(215, 255, 67, 0.34);
-  background: rgba(215, 255, 67, 0.08);
+  border-color: rgba(212, 255, 58, 0.34);
+  background: rgba(212, 255, 58, 0.08);
 }
 
 .state-pill.approval,
@@ -595,8 +604,8 @@ input:focus {
 }
 
 .workflow-item.active-run {
-  border-color: rgba(215, 255, 67, 0.58);
-  background: rgba(215, 255, 67, 0.07);
+  border-color: rgba(212, 255, 58, 0.58);
+  background: rgba(212, 255, 58, 0.07);
 }
 
 .workflow-time,
@@ -644,8 +653,8 @@ input:focus {
 }
 
 .roadmap-item.current {
-  border-color: rgba(215, 255, 67, 0.44);
-  background: rgba(215, 255, 67, 0.06);
+  border-color: rgba(212, 255, 58, 0.44);
+  background: rgba(212, 255, 58, 0.06);
 }
 
 .drawer {
