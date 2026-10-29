@@ -6,6 +6,8 @@ an interactive Mission Control dashboard.
 
 **Live demo:** https://aredwan-xyz.github.io/jarvis-os/
 
+**License:** proprietary, all rights reserved. The [LICENSE](LICENSE) grants no right to reuse, modify or distribute the code without the copyright holder's written permission. Public visibility does not make this an open-source project.
+
 > The live site is static (GitHub Pages), so the UI renders fully but the
 > backend-powered panels show an "API offline" notice. Run it locally (below) for
 > the complete experience, including live routing, memory search, and the API.
